@@ -10,34 +10,26 @@
  * Return: Nothing.
  */
 
-void bubble_sort(int *array, size_t size)
-{
-	int *left, *right, temp;
-	int swap_occurred;
-	size_t index;
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
-	if (array == NULL || size < 2)
-		return;
+void print_array(int *array, size_t size) {
+    for (size_t i = 0; i < size; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+}
 
-	do {
-		index = 1;
-		left = array;
-		right = array + index;
-		swap_occurred = false;
-
-		while (index < size)
-		{
-			if (*left > *right)
-			{
-				temp = *left;
-				*left = *right;
-				*right = temp;
-				swap_occurred = true;
-				print_array(array, size);
-			}
-			index++;
-			left = right;
-			right = array + index;
-		}
-	} while (swap_occurred == true);
+void bubble_sort(int *array, size_t size) {
+    for (size_t i = 0; i < size - 1; i++) {
+        for (size_t j = 0; j < size - i - 1; j++) {
+            if (array[j] > array[j + 1]) {
+                swap(&array[j], &array[j + 1]);
+                print_array(array, size);
+            }
+        }
+    }
 }
