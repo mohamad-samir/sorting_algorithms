@@ -1,67 +1,109 @@
-# Sorting Algorithms
+# C - Sorting algorithms & Big O
+This is a ALX Holberton School project on sorting algorithms in C language.
 
-Implementation of sorting algorithms in C.
+<p align="center">
+<img src="https://s3.amazonaws.com/intranet-projects-files/holbertonschool-low_level_programming/248/willy-wonka.png" width="600" height="250" />
+</p>
 
-## **Insertion Sort**
+## Table of Contents
+| `Files` | `Description` |
+| --- | --- |
+| [sort.h](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/sort.h) | Header file which contains all the function prototypes. | 
+| [0-bubble_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/0-bubble_sort.c), [0-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/0-O) | A function that sorts an array of integers in ascending order using the Bubble sort algorithm. |
+| [1-insertion_sort_list.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/1-insertion_sort_list.c), [1-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/1-O) | A function that sorts a doubly linked list of integers in ascending order using the Insertion sort algorithm. |
+| [2-selection_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/2-selection_sort.c), [2-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/2-O) | A function that sorts an array of integers in ascending order using the Selection sort algorithm. |
+| [3-quick_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/3-quick_sort.c), [3-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/3-O) | A function that sorts an array of integers in ascending order using the Quick sort algorithm. |
+| [100-shell_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/100-shell_sort.c) | A function that sorts an array of integers in ascending order using the Shell sort algorithm, using the `Knuth sequence`. |
+| [101-cocktail_sort_list.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/101-cocktail_sort_list.c), [101-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/101-O) | A function that sorts a doubly linked list of integers in ascending order using the [Cocktail shaker sort](https://alx-intranet.hbtn.io/rltoken/bwa4mHfUbbWTB8J2OIHvpA) algorithm. |
+| [102-counting_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/102-counting_sort.c), [102-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/102-O) | A function that sorts an array of integers in ascending order using the Counting sort algorithm. |
+| [103-merge_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/103-merge_sort.c), [103-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/103-O) | A function that sorts an array of integers in ascending order using the [Merge sort](https://alx-intranet.hbtn.io/rltoken/8sZ3nAhd_YLNzHCgNbbf8A) algorithm. |
+| [104-heap_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/104-heap_sort.c), [104-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/104-O) | A function that sorts an array of integers in ascending order using the Heap sort algorithm. |
+| [105-radix_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/105-radix_sort.c) | A function that sorts an array of integers in ascending order using the [Radix sort](https://alx-intranet.hbtn.io/rltoken/pBsj4j_AF_mJAgNZWmX3VQ) algorithm. |
+| [106-bitonic_sort.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/106-bitonic_sort.c), [106-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/106-O) | A function that sorts an array of integers in ascending order using the [Bitonic sort](https://alx-intranet.hbtn.io/rltoken/N-bjAbxm5yr4DoeIDz5lLw) algorithm. |
+| [107-quick_sort_hoare.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/107-quick_sort_hoare.c), [107-O](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/107-O) | A function that sorts an array of integers in ascending order using the [Quick sort](https://alx-intranet.hbtn.io/rltoken/_pBTrH0Xyo4BRmQn4CtnMg) algorithm. |
+| [1000-sort_deck.c](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/1000-sort_deck.c), [deck.h](https://github.com/TosinISOGUN/sorting_algorithms/blob/main/deck.h) | A function that sorts a deck of cards. |
 
-In this code, the insertion_sort_list function implements the insertion sort algorithm to sort a doubly linked list. Here's a summary of the main steps:
+## Environment & Requirements
+<img src="https://alx-apply.hbtn.io/brand_alx/share_image_2019.jpg" width="300" height="100" />
 
-1. Check if the list is empty or has only one element. If so, there's nothing to sort, so return.
-2. Start sorting from the second element in the list.
-3. Iterate through the unsorted portion of the list.
-4. For each element in the unsorted portion, compare it with the elements in the sorted portion (iterate backwards).
-5. If the element is smaller than the previous element, swap it with the previous element by adjusting the links.
-6. Continue swapping until the element is in its correct sorted position.
-7. Update the head of the list if necessary.
-8. Print the current state of the list after each swap.
-9. The comments provide additional explanations for each step in the code.
+- Allowed editors: `vi`, `vim`, `emacs`
+- Compiler;
+  - Ubuntu 20.04 LTS using gcc.
+  - Using the options `-Wall -Werror -Wextra -pedantic -std=gnu89`
+- Coding style;
+  - Betty Style.
+- The use of global variables is not allowed.
 
-## **Quick Sort**
+## Data Structure and Functions
+- For this project we are given the following `print_array`, and `print_list` functions:
 
-In this code, I implemented the quick sort algorithm using recursion. SInce we are meant to print the whole array after each swap, I created another function and added the original array pointer and the original array size as parameters so that it can be used to print the whole array after each swap in any of the recursive call.
+```C
+#include <stdlib.h>
+#include <stdio.h>
 
-The code implements the quicksort algorithm recursively to sort an integer array in ascending order. Let's go through the code step by step:
+/**
+ * print_array - Prints an array of integers
+ *
+ * @array: The array to be printed
+ * @size: Number of elements in @array
+ */
+void print_array(const int *array, size_t size)
+{
+    size_t i;
 
-1. The function `quick_sort_recurse` is defined, which takes in four parameters:
+    i = 0;
+    while (array && i < size)
+    {
+        if (i > 0)
+            printf(", ");
+        printf("%d", array[i]);
+        ++i;
+    }
+    printf("\n");
+}
+```
+```C
+#include <stdio.h>
+#include "sort.h"
 
-   * `array`: a pointer to the array to be sorted
-   * `size`: the size of the array
-   * `o_array`: a pointer to the original array (used for printing purposes)
-   * `o_size`: the size of the original array
+/**
+ * print_list - Prints a list of integers
+ *
+ * @list: The list to be printed
+ */
+void print_list(const listint_t *list)
+{
+    int i;
 
-2. Before performing any sorting, the code checks for two base cases:
+    i = 0;
+    while (list)
+    {
+        if (i > 0)
+            printf(", ");
+        printf("%d", list->n);
+        ++i;
+        list = list->next;
+    }
+    printf("\n");
+}
+```
+**Here's the data structure for doubly linked list:**
+```C
+/**
+ * struct listint_s - Doubly linked list node
+ *
+ * @n: Integer stored in the node
+ * @prev: Pointer to the previous element of the list
+ * @next: Pointer to the next element of the list
+ */
+typedef struct listint_s
+{
+    const int n;
+    struct listint_s *prev;
+    struct listint_s *next;
+} listint_t;
+```
 
-   * If the `array` is `NULL`, indicating an empty array, or if the `size` of the array is less than 2, meaning it contains only one element or no elements, the function returns, as no sorting is required.
-
-3. The variable declarations follow:
-
-    * `cursor_idx`: the index of the current element being considered
-    * `pivot_idx`: the index of the pivot element (set as the last element initially)
-    * `swap_idx`: the index of the last element smaller than or equal to the pivot (initialized to -1)
-    * `hold`: a temporary variable used for swapping elements
-    * `left_size`: the size of the left subarray (elements smaller than the pivot)
-    * `right_size`: the size of the right subarray (elements greater than the pivot)
-
-4. The code enters a while loop that iterates from the `cursor_idx` to the `pivot_idx` inclusive.
-
-5. Within the loop, it compares the element at the `cursor_idx` with the pivot element (the element at `pivot_idx`).
-
-6. If the current element is smaller than or equal to the pivot, it means it should be moved to the left subarray. The code increments `swap_idx` and performs the swap between the current element and the element at the `swap_idx` index. This places the smaller element to the left of the pivot.
-
-7. After the swap, the print_array function is called to print the intermediate state of the array (presumably for debugging or visualization purposes).
-
-8. The `cursor_idx` is incremented to move to the next element.
-
-9. Once the while loop finishes, the code determines the sizes of the left and right subarrays:
-
-    * `left_size` is set as the value of `swap_idx`, which represents the index of the last element smaller than or equal to the pivot.
-    * `right_size` is calculated as the difference between the size of the array and the `swap_idx` + 1 index, representing the number of elements greater than the pivot.
-
-10. The `quick_sort_recurse` function is called recursively twice:
-
-    * The first recursive call sorts the left subarray from index 0 to `left_size`.
-    * The second recursive call sorts the right subarray from index `swap_idx` + 1 to `swap_idx` + 1 + `right_size`.
-
-11. The function ends, and the sorting process continues recursively until all subarrays have been sorted.
-
-Overall, the code partitions the array based on a pivot element and recursively sorts the resulting subarrays. This process continues until the base cases are reached, resulting in a fully sorted array.
+## Authors & Credits
+- [Oluwatomisin ISOGUN](https://github.com/TosinISOGUN)
+> Other collaborators are acknowledged within the project.

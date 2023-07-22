@@ -1,46 +1,45 @@
 #include "sort.h"
 
 /**
- * selection_sort - Sorting Algorithm
- * @array: The array to be sorted.
- * @size: The size of the array to be sorted.
- *
- * A selection-sort algorithm for sorting an array of integers.
- *
- * Return: Nothing.
+ * swap_ints - Swap two integers in an array.
+ * @a: The first integer to swap.
+ * @b: The second integer to swap.
  */
+void swap_ints(int *a, int *b)
+{
+	int tmp;
 
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+/**
+ * selection_sort - Sort an array of integers in ascending order
+ *                  using the selection sort algorithm.
+ * @array: An array of integers.
+ * @size: The size of the array.
+ *
+ * Description: Prints the array after each swap.
+ */
 void selection_sort(int *array, size_t size)
 {
-	size_t sort_position, min_position, cursor;
-	int hold;
+	int *min;
+	size_t i, j;
 
-	if (!array || size < 2)
+	if (array == NULL || size < 2)
 		return;
 
-	sort_position = 0;
-
-	while (sort_position < size - 1)
+	for (i = 0; i < size - 1; i++)
 	{
-		cursor = sort_position + 1;
-		min_position = cursor;
+		min = array + i;
+		for (j = i + 1; j < size; j++)
+			min = (array[j] < *min) ? (array + j) : min;
 
-		while (cursor < size)
+		if ((array + i) != min)
 		{
-			if (array[cursor] < array[min_position])
-			{
-				min_position = cursor;
-			}
-			cursor++;
-		}
-
-		if (array[min_position] < array[sort_position])
-		{
-			hold = array[min_position];
-			array[min_position] = array[sort_position];
-			array[sort_position] = hold;
+			swap_ints(array + i, min);
 			print_array(array, size);
 		}
-		sort_position++;
 	}
 }

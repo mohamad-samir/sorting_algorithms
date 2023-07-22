@@ -1,52 +1,48 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - Sorting Algorithm
- * @list: The doubly-linked list to be sorted.
- *
- * This is an insertion-sort algorithm for sorting a list of integers.
- *
- * Return: Nothing.
+ * swap_nodes - Swap two nodes in a listint_t doubly-linked list.
+ * @h: A pointer to the head of the doubly-linked list.
+ * @n1: A pointer to the first node to swap.
+ * @n2: The second node to swap.
  */
+void swap_nodes(listint_t **h, listint_t **n1, listint_t *n2)
+{
+	(*n1)->next = n2->next;
+	if (n2->next != NULL)
+		n2->next->prev = *n1;
+	n2->prev = (*n1)->prev;
+	n2->next = *n1;
+	if ((*n1)->prev != NULL)
+		(*n1)->prev->next = n2;
+	else
+		*h = n2;
+	(*n1)->prev = n2;
+	*n1 = n2->prev;
+}
 
+/**
+ * insertion_sort_list - Sorts a doubly linked list of integers
+ *                       using the insertion sort algorithm.
+ * @list: A pointer to the head of a doubly-linked list of integers.
+ *
+ * Description: Prints the list after each swap.
+ */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *to_be_sorted, *unsorted;
+	listint_t *iter, *insert, *tmp;
 
-	/* Check if the list is empty or has only one element */
-	if (!list || !(*list) || !(*list)->next)
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 
-	/* Start sorting from the second element in the list */
-	unsorted = (*list)->next;
-
-	while (unsorted)
+	for (iter = (*list)->next; iter != NULL; iter = tmp)
 	{
-		to_be_sorted = unsorted;
-		unsorted = unsorted->next;
-
-		/* Iterate backwards through the sorted portion of the list */
-		while (to_be_sorted->prev && (to_be_sorted->prev->n > to_be_sorted->n))
+		tmp = iter->next;
+		insert = iter->prev;
+		while (insert != NULL && iter->n < insert->n)
 		{
-			/* Join the previous node with the next node */
-			to_be_sorted->prev->next = to_be_sorted->next;
-			if (to_be_sorted->next)
-				to_be_sorted->next->prev = to_be_sorted->prev;
-
-			/* Move the to_be_sorted node one position to the left */
-			to_be_sorted->next = to_be_sorted->prev;
-			to_be_sorted->prev = to_be_sorted->prev->prev;
-
-			/* Update the links of the adjacent nodes */
-			to_be_sorted->next->prev = to_be_sorted;
-
-			if (to_be_sorted->prev)
-				to_be_sorted->prev->next = to_be_sorted;
-			else
-				*list = to_be_sorted;
-
-			/* Print the current state of the list */
-			print_list(*list);
+			swap_nodes(list, &insert, iter);
+			print_list((const listint_t *)*list);
 		}
 	}
 }
