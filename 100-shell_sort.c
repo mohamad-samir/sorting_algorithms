@@ -7,7 +7,9 @@
  */
 void swap_ints(int *a, int *b)
 {
-	int tmp = *a;
+	int tmp;
+
+	tmp = *a;
 	*a = *b;
 	*b = tmp;
 }
@@ -22,35 +24,25 @@ void swap_ints(int *a, int *b)
  */
 void shell_sort(int *array, size_t size)
 {
+	size_t gap, i, j;
+
 	if (array == NULL || size < 2)
 		return;
 
-	size_t gap, i, j;
-
-	/* Calculate the initial gap using Knuth's sequence */
-	for (gap = 1; gap < size / 3;)
+	for (gap = 1; gap < (size / 3);)
 		gap = gap * 3 + 1;
 
 	for (; gap >= 1; gap /= 3)
 	{
-		/* Perform insertion sort with the current gap */
 		for (i = gap; i < size; i++)
 		{
-			int current_element = array[i];
 			j = i;
-
-			/* Shift elements to the right to create space for insertion */
-			while (j >= gap && array[j - gap] > current_element)
+			while (j >= gap && array[j - gap] > array[j])
 			{
-				array[j] = array[j - gap];
+				swap_ints(array + j, array + (j - gap));
 				j -= gap;
 			}
-
-			/* Insert the current element into the correct position */
-			array[j] = current_element;
 		}
-
-		/* Print the array after each pass */
 		print_array(array, size);
 	}
 }
