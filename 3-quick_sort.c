@@ -58,7 +58,7 @@ void quick_sort_recurse(int *array, size_t size, int *o_array, size_t o_size)
 			swap_idx++;
 			if (cursor_idx > swap_idx)
 			{
-				swap(&array[cursor_idx], &array[swap_idx]);
+				swap(array + cursor_idx, array + swap_idx);
 				print_array(o_array, o_size);
 			}
 		}
