@@ -7,50 +7,50 @@
  */
 void swap_ints(int *a, int *b)
 {
-    int tmp;
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
+	int tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
 
 /**
- * shell_sort - Sorts an array of integers in ascending order using
- * the Shell sort algorithm with the Knuth sequence
- * @array: The array of integers to be sorted
- * @size: The size of the array
+ * shell_sort - Sort an array of integers in ascending
+ *              order using the shell sort algorithm.
+ * @array: An array of integers.
+ * @size: The size of the array.
  *
- * Return: Nothing
+ * Description: Uses the Knuth interval sequence.
  */
 void shell_sort(int *array, size_t size)
 {
-    size_t gap = 1;
-    size_t i, j;
-    int temp;
+	if (array == NULL || size < 2)
+		return;
 
-    /* Calculate the initial gap value using the Knuth sequence */
-    while (gap < size / 3)
-        gap = gap * 3 + 1;
+	size_t gap, i, j;
 
-    while (gap > 0)
-    {
-        for (i = gap; i < size; i++)
-        {
-            temp = array[i];
-            j = i;
+	/* Calculate the initial gap using Knuth's sequence */
+	for (gap = 1; gap < size / 3;)
+		gap = gap * 3 + 1;
 
-            while (j >= gap && array[j - gap] > temp)
-            {
-                swap_ints(&array[j], &array[j - gap]);
-                j -= gap;
-            }
+	for (; gap >= 1; gap /= 3)
+	{
+		/* Perform insertion sort with the current gap */
+		for (i = gap; i < size; i++)
+		{
+			int current_element = array[i];
+			j = i;
 
-            array[j] = temp;
-        }
+			/* Shift elements to the right to create space for insertion */
+			while (j >= gap && array[j - gap] > current_element)
+			{
+				array[j] = array[j - gap];
+				j -= gap;
+			}
 
-        /* Print the array after each decrease in the gap */
-        print_array(array, size);
+			/* Insert the current element into the correct position */
+			array[j] = current_element;
+		}
 
-        /* Update the gap value using the Knuth sequence */
-        gap = (gap - 1) / 3;
-    }
+		/* Print the array after each pass */
+		print_array(array, size);
+	}
 }
