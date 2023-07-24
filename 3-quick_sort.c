@@ -1,5 +1,12 @@
 #include "sort.h"
 
+void swap(int *a, int *b)
+{
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
 void quick_sort_recurse(int *array, size_t size, int *o_array, size_t o_size);
 
 /**
@@ -32,7 +39,7 @@ void quick_sort(int *array, size_t size)
 void quick_sort_recurse(int *array, size_t size, int *o_array, size_t o_size)
 {
 	size_t cursor_idx, pivot_idx, swap_idx;
-	int hold, left_size, right_size;
+	int left_size, right_size;
 
 	/* Check for base cases: empty array or array with a single element */
 	if (array == NULL || size < 2)
@@ -51,9 +58,7 @@ void quick_sort_recurse(int *array, size_t size, int *o_array, size_t o_size)
 			swap_idx++;
 			if (cursor_idx > swap_idx)
 			{
-				hold = array[cursor_idx];
-				array[cursor_idx] = array[swap_idx];
-				array[swap_idx] = hold;
+				swap(&array[cursor_idx], &array[swap_idx + 1]);
 				print_array(o_array, o_size);
 			}
 		}
